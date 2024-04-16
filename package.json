@@ -1,0 +1,9 @@
+{
+  "name": "scaling-fiesta",
+  "version": "1.0.0",
+  "description": "Page scrapper",
+  "main": "index.js",
+  "repository": "https://github.com/korxz/scaling-fiesta.git",
+  "author": "roksilic <roksilic.net@gmail.com>",
+  "license": "MIT"
+}

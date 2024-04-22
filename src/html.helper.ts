@@ -33,6 +33,31 @@ export class Page {
     console.log(`Ended image download, downloaded: ${images.length} images`);
   }
 
+  getPageLinks(url: string): Array<string> {
+    const links = this.html("a");
+
+    console.log("Scrapping <a></a> tags on page.");
+
+    const hrefs: Array<string> = [];
+
+    // Exclude previous page
+    const previousPage = this.html("link.previous a").attr("href");
+
+    for (const link of links) {
+      const href = this.html(link).attr("href");
+
+      if (href !== previousPage) {
+        // Add to arrays, already scrapped and yet to scrape so we prevent looping
+        const absoluteUrl = new URL(href, url).href;
+        hrefs.push(absoluteUrl);
+      }
+    }
+
+    console.log("Ended scrapping <a></a> tags on page");
+
+    return hrefs;
+  }
+
   hasNextPage(): boolean {
     return this.html("div ul.pager li.next").length > 0;
   }

@@ -2,6 +2,7 @@ import * as cheerio from "cheerio";
 import * as fs from "fs";
 import * as path from "path";
 import { downloadImage } from "./scrape.service";
+import sanitize from "sanitize-filename";
 
 export class Page {
   $: cheerio.CheerioAPI;
@@ -14,8 +15,13 @@ export class Page {
     this.$ = cheerio.load(data, { xmlMode: true });
   }
 
-  savePage(fileName: string): void {
-    fs.writeFileSync(path.join(this.pagesDirectory, fileName), this.html);
+  savePage(url: string): void {
+    console.log(`Saving a page on url: ${url}`);
+
+    fs.writeFileSync(
+      path.join(this.pagesDirectory, `${sanitize(url)}.html`),
+      this.html
+    );
   }
 
   async downloadImages(baseUrl: string): Promise<void> {

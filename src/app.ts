@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Page } from "./html.helper";
 import { baseUrl } from "./constants";
-import sanitize from "sanitize-filename";
 
 (async () => {
   console.log("Program started.");
@@ -12,9 +11,7 @@ import sanitize from "sanitize-filename";
 
   const page = new Page(response.data);
 
-  console.log(`Saving a page on url: ${baseUrl}`);
-
-  page.savePage(`${sanitize(baseUrl)}.html`);
+  page.savePage(baseUrl);
 
   const scrapedPages: {
     [key: string]: boolean;
@@ -38,9 +35,7 @@ import sanitize from "sanitize-filename";
 
     const page = new Page(response.data);
 
-    console.log(`Saving a page on url: ${url}`);
-
-    page.savePage(`${sanitize(url)}.html`);
+    page.savePage(url);
 
     scrapedPages[url] = true;
 

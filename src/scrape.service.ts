@@ -6,7 +6,7 @@ import * as https from "https";
 
 export async function getPageContent(url: string): Promise<string> {
   try {
-    const response = await axios.get(baseUrl);
+    const response = await axios.get(url);
 
     return response.data;
   } catch (err: any) {

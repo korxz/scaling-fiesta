@@ -1,0 +1,30 @@
+{
+  "name": "scaling-fiesta",
+  "version": "1.0.0",
+  "description": "Page scraper",
+  "main": "index.js",
+  "repository": "https://github.com/korxz/scaling-fiesta.git",
+  "author": "roksilic <roksilic.net@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "scrape": "ts-node src/app.ts",
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/*.ts'"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12",
+    "sanitize-filename": "^1.6.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "sinon": "^17.0.1",
+    "@types/chai": "^4.3.14",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
+    "@types/sinon": "^17.0.3",
+    "chai": "^4.3.10",
+    "mocha": "^10.4.0",
+    "ts-mocha": "^10.0.0"
+  }
+}

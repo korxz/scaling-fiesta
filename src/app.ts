@@ -5,8 +5,6 @@ import { baseUrl } from "./constants";
 (async () => {
   console.log("Program started.");
 
-  console.log("Making initial page request");
-
   const response = await axios.get(baseUrl);
 
   const page = new Page(response.data);

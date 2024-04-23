@@ -2,7 +2,8 @@ import { expect } from "chai";
 import * as fs from "fs";
 import * as path from "path";
 import { Page } from "../src/html.helper";
-import Sinon from "sinon";
+import Sinon, { SinonStub } from "sinon";
+import scrapeService from "../src/scrape.service";
 
 describe("Html helper - Page class", () => {
   let page: Page;
@@ -26,6 +27,10 @@ describe("Html helper - Page class", () => {
     );
   });
 
+  after(() => {
+    Sinon.restore();
+  });
+
   describe("savePage method", () => {
     it("should save page correctly", () => {
       page.savePage(url);
@@ -41,18 +46,15 @@ describe("Html helper - Page class", () => {
     });
   });
 
-  describe("downloadImages methods", () => {
-    it("should download images correctly", async () => {
-      // Mock downloadImage function
-      const downloadImage = async (url: string, filePath: string) => {
-        // Create empty file to simulate image download
-        fs.writeFileSync(filePath, "");
-      };
-      page.downloadImages(url);
-      const imagesDir = path.join(__dirname, "..", "src", "images");
-      const files = fs.readdirSync(imagesDir);
-      expect(files.length).to.equal(1); // Assuming one image is downloaded
-    });
+  it("should download images correctly", async () => {
+    const downloadImageStub = Sinon.stub(
+      scrapeService,
+      "downloadImage"
+    ).resolves();
+
+    await page.downloadImages(url);
+
+    Sinon.assert.calledOnce(downloadImageStub);
   });
 
   describe("scrapePage method", () => {

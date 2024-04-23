@@ -7,7 +7,8 @@
   "author": "roksilic <roksilic.net@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "scrape": "ts-node src/app.ts"
+    "scrape": "ts-node src/app.ts",
+    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/*.ts'"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -17,6 +18,13 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7"
+    "sinon": "^17.0.1",
+    "@types/chai": "^4.3.14",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
+    "@types/sinon": "^17.0.3",
+    "chai": "^4.3.10",
+    "mocha": "^10.4.0",
+    "ts-mocha": "^10.0.0"
   }
 }

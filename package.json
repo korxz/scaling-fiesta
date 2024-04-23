@@ -7,7 +7,7 @@
   "author": "roksilic <roksilic.net@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "scrape": "tsc src/app.ts"
+    "scrape": "ts-node src/app.ts"
   },
   "dependencies": {
     "axios": "^1.6.8",

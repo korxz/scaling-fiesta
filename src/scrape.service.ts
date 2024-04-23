@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Page } from "./html.helper";
-import { baseUrl } from "./constants";
 import * as fs from "fs";
 import * as https from "https";
 

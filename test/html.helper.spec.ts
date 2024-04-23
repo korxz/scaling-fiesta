@@ -26,42 +26,50 @@ describe("Html helper - Page class", () => {
     );
   });
 
-  it("should save page correctly", () => {
-    page.savePage(url);
-    const filePath = path.join(
-      __dirname,
-      "..",
-      "src",
-      "pages",
-      "httpexample.com.html"
-    );
+  describe("savePage method", () => {
+    it("should save page correctly", () => {
+      page.savePage(url);
+      const filePath = path.join(
+        __dirname,
+        "..",
+        "src",
+        "pages",
+        "httpexample.com.html"
+      );
 
-    expect(fs.existsSync(filePath)).to.be.true;
+      expect(fs.existsSync(filePath)).to.be.true;
+    });
   });
 
-  it("should download images correctly", async () => {
-    // Mock downloadImage function
-    const downloadImage = async (url: string, filePath: string) => {
-      // Create empty file to simulate image download
-      fs.writeFileSync(filePath, "");
-    };
-    page.downloadImages(url);
-    const imagesDir = path.join(__dirname, "..", "src", "images");
-    const files = fs.readdirSync(imagesDir);
-    expect(files.length).to.equal(1); // Assuming one image is downloaded
+  describe("downloadImages methods", () => {
+    it("should download images correctly", async () => {
+      // Mock downloadImage function
+      const downloadImage = async (url: string, filePath: string) => {
+        // Create empty file to simulate image download
+        fs.writeFileSync(filePath, "");
+      };
+      page.downloadImages(url);
+      const imagesDir = path.join(__dirname, "..", "src", "images");
+      const files = fs.readdirSync(imagesDir);
+      expect(files.length).to.equal(1); // Assuming one image is downloaded
+    });
   });
 
-  it("should scrape page correctly", async () => {
-    // Mock savePage and downloadImages functions
-    const savePageStub = Sinon.stub(page, "savePage");
-    const downloadImagesStub = Sinon.stub(page, "downloadImages");
-    await page.scrapePage(url);
-    expect(savePageStub.calledOnceWith(url)).to.be.true;
-    expect(downloadImagesStub.calledOnceWith(url)).to.be.true;
+  describe("scrapePage method", () => {
+    it("should scrape page correctly", async () => {
+      // Mock savePage and downloadImages functions
+      const savePageStub = Sinon.stub(page, "savePage");
+      const downloadImagesStub = Sinon.stub(page, "downloadImages");
+      await page.scrapePage(url);
+      expect(savePageStub.calledOnceWith(url)).to.be.true;
+      expect(downloadImagesStub.calledOnceWith(url)).to.be.true;
+    });
   });
 
-  it("should get page links correctly", () => {
-    const links = page.getPageLinks(url);
-    expect(links).to.deep.equal(["http://example.com/page2.html"]);
+  describe("getPageLinks method", () => {
+    it("should get page links correctly", () => {
+      const links = page.getPageLinks(url);
+      expect(links).to.deep.equal(["http://example.com/page2.html"]);
+    });
   });
 });

@@ -1,11 +1,11 @@
 import { Page } from "./html.helper";
 import { baseUrl } from "./constants";
-import { getPageContent } from "./scrape.service";
+import scrapeService from "./scrape.service";
 
 (async () => {
   console.log("Program started.");
 
-  const responseData = await getPageContent(baseUrl);
+  const responseData = await scrapeService.getPageContent(baseUrl);
 
   const page = new Page(responseData);
 
@@ -27,7 +27,7 @@ import { getPageContent } from "./scrape.service";
     const keys = Object.keys(pagesToSrap);
     const url = keys[0];
 
-    const responseData = await getPageContent(url);
+    const responseData = await scrapeService.getPageContent(url);
 
     const page = new Page(responseData);
 

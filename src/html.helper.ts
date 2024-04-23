@@ -1,8 +1,8 @@
 import * as cheerio from "cheerio";
 import * as fs from "fs";
 import * as path from "path";
-import { downloadImage } from "./scrape.service";
 import sanitize from "sanitize-filename";
+import scrapeService from "./scrape.service";
 
 export class Page {
   $: cheerio.CheerioAPI;
@@ -36,7 +36,7 @@ export class Page {
       if (pathUrl !== undefined) {
         const url = new URL(pathUrl, pageUrl).href;
 
-        await downloadImage(
+        await scrapeService.downloadImage(
           url,
           path.join(this.imagesDirectory, url.replace(/\//g, "_"))
         );

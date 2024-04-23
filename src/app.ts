@@ -11,7 +11,7 @@ import { baseUrl } from "./constants";
 
   const page = new Page(response.data);
 
-  page.savePage(baseUrl);
+  await page.scrapePage(baseUrl);
 
   const scrapedPages: {
     [key: string]: boolean;
@@ -25,8 +25,6 @@ import { baseUrl } from "./constants";
 
   scrapedPages[baseUrl] = true;
 
-  await page.downloadImages(baseUrl);
-
   while (Object.keys(pagesToSrap).length > 0) {
     const keys = Object.keys(pagesToSrap);
     const url = keys[0];
@@ -35,11 +33,9 @@ import { baseUrl } from "./constants";
 
     const page = new Page(response.data);
 
-    page.savePage(url);
+    await page.scrapePage(url);
 
     scrapedPages[url] = true;
-
-    await page.downloadImages(url);
 
     for (const pageLink of page.getPageLinks(url)) {
       if (

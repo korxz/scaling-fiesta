@@ -46,6 +46,12 @@ export class Page {
     console.log(`Ended image download, downloaded: ${images.length} images`);
   }
 
+  async scrapePage(url: string): Promise<void> {
+    this.savePage(url);
+
+    await this.downloadImages(url);
+  }
+
   getPageLinks(url: string): Array<string> {
     const links = this.$("a");
 

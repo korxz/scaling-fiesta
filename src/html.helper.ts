@@ -59,20 +59,4 @@ export class Page {
 
     return hrefs;
   }
-
-  // TODO: to remove
-  hasNextPage(): boolean {
-    return this.html("div ul.pager li.next").length > 0;
-  }
-
-  // TODO: to remove
-  getNextPageUrl(): string {
-    const urlParam = this.html("div ul.pager li.next a").attr("href");
-
-    if (urlParam.split("/").length > 1) {
-      return urlParam;
-    }
-
-    return `catalogue/${urlParam}`;
-  }
 }

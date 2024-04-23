@@ -24,7 +24,7 @@ export class Page {
     );
   }
 
-  async downloadImages(baseUrl: string): Promise<void> {
+  async downloadImages(pageUrl: string): Promise<void> {
     // Query for all <img></img>
     const images = this.$("img");
 
@@ -34,7 +34,7 @@ export class Page {
       const pathUrl = this.$(image).attr("src");
 
       if (pathUrl !== undefined) {
-        const url = new URL(pathUrl, baseUrl).href;
+        const url = new URL(pathUrl, pageUrl).href;
 
         await downloadImage(
           url,

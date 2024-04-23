@@ -36,10 +36,10 @@ export class Page {
       if (pathUrl !== undefined) {
         const url = new URL(pathUrl, baseUrl).href;
 
-        // await downloadImage(
-        //   url,
-        //   path.join(this.imagesDirectory, url.replace(/\//g, "_"))
-        // );
+        await downloadImage(
+          url,
+          path.join(this.imagesDirectory, url.replace(/\//g, "_"))
+        );
       }
     }
 

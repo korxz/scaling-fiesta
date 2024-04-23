@@ -14,7 +14,7 @@ import sanitize from "sanitize-filename";
 
   console.log(`Saving a page on url: ${baseUrl}`);
 
-  page.savePage(response.data, `${sanitize(baseUrl)}.html`);
+  page.savePage(`${sanitize(baseUrl)}.html`);
 
   const scrapedPages: {
     [key: string]: boolean;
@@ -40,14 +40,13 @@ import sanitize from "sanitize-filename";
 
     console.log(`Saving a page on url: ${url}`);
 
-    page.savePage(response.data, `${sanitize(url)}.html`);
+    page.savePage(`${sanitize(url)}.html`);
 
     scrapedPages[url] = true;
+
     await page.downloadImages(url);
 
-    const otherPageLinks: Array<string> = page.getPageLinks(url);
-
-    for (const pageLink of otherPageLinks) {
+    for (const pageLink of page.getPageLinks(url)) {
       if (
         scrapedPages[pageLink] === undefined &&
         pagesToSrap[pageLink] === undefined

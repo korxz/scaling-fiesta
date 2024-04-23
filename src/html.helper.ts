@@ -1,7 +1,7 @@
 import * as cheerio from "cheerio";
 import * as fs from "fs";
 import * as path from "path";
-import { downloadImage, generateUrl } from "./scrape.service";
+import { downloadImage } from "./scrape.service";
 
 export class Page {
   html: any;
@@ -9,24 +9,26 @@ export class Page {
   imagesDirectory = path.join("src", "images");
 
   constructor(pageContent: string) {
-    this.html = cheerio.load(pageContent);
+    this.html = cheerio.load(pageContent, { xmlMode: true });
   }
 
   savePage(pageContent: string, fileName: string): void {
     fs.writeFileSync(path.join(this.pagesDirectory, fileName), pageContent);
   }
 
-  async downloadImages(): Promise<void> {
+  async downloadImages(baseUrl: string): Promise<void> {
     // Query for all <img></img>
     const images = this.html("img");
 
     console.log("Starting downloading images");
 
     for (const image of images) {
-      const imageUrl = this.html(image).attr("src").replace("..", "") as string;
+      const pathUrl = this.html(image).attr("src");
+      const url = new URL(pathUrl, baseUrl).href;
+
       await downloadImage(
-        generateUrl(imageUrl),
-        path.join(this.imagesDirectory, imageUrl.replace(/\//g, "_"))
+        url,
+        path.join(this.imagesDirectory, url.replace(/\//g, "_"))
       );
     }
 
@@ -58,10 +60,12 @@ export class Page {
     return hrefs;
   }
 
+  // TODO: to remove
   hasNextPage(): boolean {
     return this.html("div ul.pager li.next").length > 0;
   }
 
+  // TODO: to remove
   getNextPageUrl(): string {
     const urlParam = this.html("div ul.pager li.next a").attr("href");
 
@@ -70,11 +74,5 @@ export class Page {
     }
 
     return `catalogue/${urlParam}`;
-  }
-
-  getNumberOfPage(): number {
-    const urlParam = this.getNextPageUrl();
-
-    return Number(urlParam.split("/")[1].split(".")[0].split("-")[1]) - 1;
   }
 }

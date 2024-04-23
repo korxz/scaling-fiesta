@@ -33,8 +33,9 @@ describe("Html helper - Page class", () => {
       "..",
       "src",
       "pages",
-      "http___example.com.html"
+      "httpexample.com.html"
     );
+
     expect(fs.existsSync(filePath)).to.be.true;
   });
 

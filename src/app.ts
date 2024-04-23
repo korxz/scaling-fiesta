@@ -1,13 +1,13 @@
-import axios from "axios";
 import { Page } from "./html.helper";
 import { baseUrl } from "./constants";
+import { getPageContent } from "./scrape.service";
 
 (async () => {
   console.log("Program started.");
 
-  const response = await axios.get(baseUrl);
+  const responseData = await getPageContent(baseUrl);
 
-  const page = new Page(response.data);
+  const page = new Page(responseData);
 
   await page.scrapePage(baseUrl);
 
@@ -27,9 +27,9 @@ import { baseUrl } from "./constants";
     const keys = Object.keys(pagesToSrap);
     const url = keys[0];
 
-    const response = await axios.get(url);
+    const responseData = await getPageContent(url);
 
-    const page = new Page(response.data);
+    const page = new Page(responseData);
 
     await page.scrapePage(url);
 

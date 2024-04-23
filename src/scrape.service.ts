@@ -4,6 +4,17 @@ import { baseUrl } from "./constants";
 import * as fs from "fs";
 import * as https from "https";
 
+export async function getPageContent(url: string): Promise<string> {
+  try {
+    const response = await axios.get(baseUrl);
+
+    return response.data;
+  } catch (err: any) {
+    console.log(`Failed to fetch page content.`);
+    throw new Error(err.message);
+  }
+}
+
 export async function downloadImage(
   url: string,
   filename: string
